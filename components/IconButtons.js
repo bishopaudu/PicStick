@@ -6,7 +6,7 @@ export default function IconButtons({name,label,onPress}) {
   return (
     <View>
       <Pressable style={styles.IconButton} onPress={onPress}>
-        <MaterialIcons name={name} size={25}></MaterialIcons>
+        <MaterialIcons name={name} size={25} color='#ffffff'></MaterialIcons>
         <Text style={styles.iconLabel}>{label}</Text>
     </Pressable>
   </View>
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         alignContent:'center',
     },
     iconLabel: {
-        color:'#fff',
+        color:'#ffffff',
         marginTop: 12,
     },
   
