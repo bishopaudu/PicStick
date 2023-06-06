@@ -12,6 +12,7 @@ import EmojiStickers from './components/EmojiStickers';
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import * as MediaLibrary from 'expo-media-library'
 import { captureRef } from 'react-native-view-shot';
+//import * as ImageManipulator from 'expo-image-imageManipulator'
 
 
 export default function App() {
@@ -20,23 +21,24 @@ export default function App() {
   const[isModalVisible,setIsModalVisible] = useState(false)
   const[pickedEmoji,setPickedEmoji] = useState(null)
   const[requestPermission,setRequestPermission] = MediaLibrary.usePermissions()
+  
   const imageRef = useRef()
 
   if(requestPermission === null){
     setRequestPermission()
   }
  
-  const PlaceholderImage = require('./assets/background-image.png')
+  const PlaceholderImage = require('./assets/holder_screen.jpg')
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing:true,
       quality:1
     })
-    console.log(result)
+    //console.log(result)
     if(!result.canceled){
       setSelectedImage(result.assets[0].uri)
       setShowAppOptions(true)
-      console.log(result)
+      //console.log(result)
     } else {
       alert('Did not select any image')
     }
@@ -69,9 +71,13 @@ export default function App() {
     setIsModalVisible(false)
   ]
 
-  const refresh = () =>{
+  /*const flip = async () =>{
+    if(selectedImage){
+      const flip = await ImageManipulator.manipulateAsync(selectedImage,
+        [{ flip: ImageManipulator.FlipType.Horizontal }])
+    }
 
-  }
+  }*/
 
   const addStickers= () =>{
     setIsModalVisible(true)
@@ -88,6 +94,8 @@ export default function App() {
       await MediaLibrary.saveToLibraryAsync(localUri)
       if(localUri){
         alert('Saved')
+        setShowAppOptions(false)
+        //setSlectedImage(PlaceholderImage)
       }
     } catch (err) {
       console.log(err)
@@ -107,14 +115,13 @@ export default function App() {
     {showAppOtions ? (
       <View style={styles.optionsContainer}>
         <View style={styles.optionsRow}>
-        <IconButtons name='refresh' label='Refresh' onPress={refresh} />
+        <IconButtons name='refresh' label='Flip' onPress={flip} />
         <CircleButton onPress={addStickers}/>
         <IconButtons name='save-alt' label='Save' onPress={saveImage}/>
         </View>
       </View>
     ) : (<View style={styles.footerContainer}>
       <Buttons label="Select Photo From Gallery" theme= "primary" onPress={pickImageAsync}/>
-      {/* <Buttons label="Take A Photo" onPress={()=> setShowAppOptions(true)}/> */}
       <Buttons label="Take A Photo" onPress={takePhoto}/> 
     </View>)}
     <EmojiPicker isVisible={isModalVisible} onClose={closeModal}>

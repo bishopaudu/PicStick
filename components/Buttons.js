@@ -1,5 +1,6 @@
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Entypo } from '@expo/vector-icons';
 
 export default function Buttons({ label, theme,onPress }) {
   if (theme === "primary") {
@@ -22,6 +23,7 @@ export default function Buttons({ label, theme,onPress }) {
   return (
     <View style={styles.buttonContainer}>
         <Pressable style={styles.button} onPress={onPress}>
+        <Entypo name="camera" size={18} color="black" style= {{paddingRight:6}} />
           <Text style={styles.buttonLabel}>{label}</Text>
         </Pressable>
       </View>    

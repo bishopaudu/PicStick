@@ -51,7 +51,8 @@ export default function EmojiStickers({imageSize,stickerSource}) {
     <PanGestureHandler onGestureEvent={onDrag}>
     <AnimatedView style={[containerStyle,{top: -350}]}>
         <TapGestureHandler onGestureEvent={doubleTap} numberOfTaps={2}>
-        <AnimatedImage source={stickerSource} resizeMode="contain" style ={[imageStyle,{width:imageSize,height:imageSize}]}/>
+        <AnimatedImage source={stickerSource} resizeMode="contain" 
+        style ={[imageStyle,{width:imageSize,height:imageSize}]}/>
         </TapGestureHandler>
     </AnimatedView>
     </PanGestureHandler>
